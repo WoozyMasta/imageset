@@ -1,0 +1,396 @@
+ImageSetClass {
+  Name "flat_demo"
+  RefSize 1024 1024
+  Textures {
+    ImageSetTextureClass {
+      mpix 1
+      path "gui/imagesets/flat_demo.edds"
+    }
+  }
+  Images {
+    ImageSetDefClass flat_icon_01 {
+      Name "flat_icon_01"
+      Pos 0 0
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_02 {
+      Name "flat_icon_02"
+      Pos 64 0
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_03 {
+      Name "flat_icon_03"
+      Pos 128 0
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_04 {
+      Name "flat_icon_04"
+      Pos 192 0
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_05 {
+      Name "flat_icon_05"
+      Pos 256 0
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_06 {
+      Name "flat_icon_06"
+      Pos 320 0
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_07 {
+      Name "flat_icon_07"
+      Pos 384 0
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_08 {
+      Name "flat_icon_08"
+      Pos 448 0
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_09 {
+      Name "flat_icon_09"
+      Pos 0 64
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_10 {
+      Name "flat_icon_10"
+      Pos 64 64
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_11 {
+      Name "flat_icon_11"
+      Pos 128 64
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_12 {
+      Name "flat_icon_12"
+      Pos 192 64
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_13 {
+      Name "flat_icon_13"
+      Pos 256 64
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_14 {
+      Name "flat_icon_14"
+      Pos 320 64
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_15 {
+      Name "flat_icon_15"
+      Pos 384 64
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_16 {
+      Name "flat_icon_16"
+      Pos 448 64
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_17 {
+      Name "flat_icon_17"
+      Pos 0 128
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_18 {
+      Name "flat_icon_18"
+      Pos 64 128
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_19 {
+      Name "flat_icon_19"
+      Pos 128 128
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_20 {
+      Name "flat_icon_20"
+      Pos 192 128
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_21 {
+      Name "flat_icon_21"
+      Pos 256 128
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_22 {
+      Name "flat_icon_22"
+      Pos 320 128
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_23 {
+      Name "flat_icon_23"
+      Pos 384 128
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_24 {
+      Name "flat_icon_24"
+      Pos 448 128
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_25 {
+      Name "flat_icon_25"
+      Pos 0 192
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_26 {
+      Name "flat_icon_26"
+      Pos 64 192
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_27 {
+      Name "flat_icon_27"
+      Pos 128 192
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_28 {
+      Name "flat_icon_28"
+      Pos 192 192
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_29 {
+      Name "flat_icon_29"
+      Pos 256 192
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_30 {
+      Name "flat_icon_30"
+      Pos 320 192
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_31 {
+      Name "flat_icon_31"
+      Pos 384 192
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_32 {
+      Name "flat_icon_32"
+      Pos 448 192
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_33 {
+      Name "flat_icon_33"
+      Pos 0 256
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_34 {
+      Name "flat_icon_34"
+      Pos 64 256
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_35 {
+      Name "flat_icon_35"
+      Pos 128 256
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_36 {
+      Name "flat_icon_36"
+      Pos 192 256
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_37 {
+      Name "flat_icon_37"
+      Pos 256 256
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_38 {
+      Name "flat_icon_38"
+      Pos 320 256
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_39 {
+      Name "flat_icon_39"
+      Pos 384 256
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_40 {
+      Name "flat_icon_40"
+      Pos 448 256
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_41 {
+      Name "flat_icon_41"
+      Pos 0 320
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_42 {
+      Name "flat_icon_42"
+      Pos 64 320
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_43 {
+      Name "flat_icon_43"
+      Pos 128 320
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_44 {
+      Name "flat_icon_44"
+      Pos 192 320
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_45 {
+      Name "flat_icon_45"
+      Pos 256 320
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_46 {
+      Name "flat_icon_46"
+      Pos 320 320
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_47 {
+      Name "flat_icon_47"
+      Pos 384 320
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_48 {
+      Name "flat_icon_48"
+      Pos 448 320
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_49 {
+      Name "flat_icon_49"
+      Pos 0 384
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_50 {
+      Name "flat_icon_50"
+      Pos 64 384
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_51 {
+      Name "flat_icon_51"
+      Pos 128 384
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_52 {
+      Name "flat_icon_52"
+      Pos 192 384
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_53 {
+      Name "flat_icon_53"
+      Pos 256 384
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_54 {
+      Name "flat_icon_54"
+      Pos 320 384
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_55 {
+      Name "flat_icon_55"
+      Pos 384 384
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_56 {
+      Name "flat_icon_56"
+      Pos 448 384
+      Size 48 48
+      Flags ISVerticalTile
+    }
+    ImageSetDefClass flat_icon_57 {
+      Name "flat_icon_57"
+      Pos 0 448
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_58 {
+      Name "flat_icon_58"
+      Pos 64 448
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_59 {
+      Name "flat_icon_59"
+      Pos 128 448
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_60 {
+      Name "flat_icon_60"
+      Pos 192 448
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_61 {
+      Name "flat_icon_61"
+      Pos 256 448
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass flat_icon_62 {
+      Name "flat_icon_62"
+      Pos 320 448
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_63 {
+      Name "flat_icon_63"
+      Pos 384 448
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass flat_icon_64 {
+      Name "flat_icon_64"
+      Pos 448 448
+      Size 48 48
+      Flags ISHorizontalTile
+    }
+  }
+}

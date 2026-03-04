@@ -1,0 +1,608 @@
+ImageSetClass {
+  Name "groups_demo"
+  RefSize 2048 2048
+  Textures {
+    ImageSetTextureClass {
+      mpix 1
+      path "gui/imagesets/groups_demo.edds"
+    }
+  }
+  Groups {
+    ImageSetGroupClass Status {
+      Name "Status"
+      Images {
+        ImageSetDefClass status_icon_01 {
+          Name "status_icon_01"
+          Pos 0 0
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass status_icon_02 {
+          Name "status_icon_02"
+          Pos 72 0
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass status_icon_03 {
+          Name "status_icon_03"
+          Pos 144 0
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass status_icon_04 {
+          Name "status_icon_04"
+          Pos 216 0
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass status_icon_05 {
+          Name "status_icon_05"
+          Pos 288 0
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass status_icon_06 {
+          Name "status_icon_06"
+          Pos 360 0
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass status_icon_07 {
+          Name "status_icon_07"
+          Pos 0 72
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass status_icon_08 {
+          Name "status_icon_08"
+          Pos 72 72
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass status_icon_09 {
+          Name "status_icon_09"
+          Pos 144 72
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass status_icon_10 {
+          Name "status_icon_10"
+          Pos 216 72
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass status_icon_11 {
+          Name "status_icon_11"
+          Pos 288 72
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass status_icon_12 {
+          Name "status_icon_12"
+          Pos 360 72
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass status_icon_13 {
+          Name "status_icon_13"
+          Pos 0 144
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass status_icon_14 {
+          Name "status_icon_14"
+          Pos 72 144
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass status_icon_15 {
+          Name "status_icon_15"
+          Pos 144 144
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass status_icon_16 {
+          Name "status_icon_16"
+          Pos 216 144
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass status_icon_17 {
+          Name "status_icon_17"
+          Pos 288 144
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass status_icon_18 {
+          Name "status_icon_18"
+          Pos 360 144
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass status_icon_19 {
+          Name "status_icon_19"
+          Pos 0 216
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass status_icon_20 {
+          Name "status_icon_20"
+          Pos 72 216
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass status_icon_21 {
+          Name "status_icon_21"
+          Pos 144 216
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass status_icon_22 {
+          Name "status_icon_22"
+          Pos 216 216
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass status_icon_23 {
+          Name "status_icon_23"
+          Pos 288 216
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass status_icon_24 {
+          Name "status_icon_24"
+          Pos 360 216
+          Size 56 56
+          Flags 3
+        }
+      }
+    }
+    ImageSetGroupClass HUD {
+      Name "HUD"
+      Images {
+        ImageSetDefClass hud_icon_01 {
+          Name "hud_icon_01"
+          Pos 420 0
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass hud_icon_02 {
+          Name "hud_icon_02"
+          Pos 492 0
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass hud_icon_03 {
+          Name "hud_icon_03"
+          Pos 564 0
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass hud_icon_04 {
+          Name "hud_icon_04"
+          Pos 636 0
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass hud_icon_05 {
+          Name "hud_icon_05"
+          Pos 708 0
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass hud_icon_06 {
+          Name "hud_icon_06"
+          Pos 780 0
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass hud_icon_07 {
+          Name "hud_icon_07"
+          Pos 420 72
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass hud_icon_08 {
+          Name "hud_icon_08"
+          Pos 492 72
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass hud_icon_09 {
+          Name "hud_icon_09"
+          Pos 564 72
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass hud_icon_10 {
+          Name "hud_icon_10"
+          Pos 636 72
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass hud_icon_11 {
+          Name "hud_icon_11"
+          Pos 708 72
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass hud_icon_12 {
+          Name "hud_icon_12"
+          Pos 780 72
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass hud_icon_13 {
+          Name "hud_icon_13"
+          Pos 420 144
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass hud_icon_14 {
+          Name "hud_icon_14"
+          Pos 492 144
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass hud_icon_15 {
+          Name "hud_icon_15"
+          Pos 564 144
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass hud_icon_16 {
+          Name "hud_icon_16"
+          Pos 636 144
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass hud_icon_17 {
+          Name "hud_icon_17"
+          Pos 708 144
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass hud_icon_18 {
+          Name "hud_icon_18"
+          Pos 780 144
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass hud_icon_19 {
+          Name "hud_icon_19"
+          Pos 420 216
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass hud_icon_20 {
+          Name "hud_icon_20"
+          Pos 492 216
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass hud_icon_21 {
+          Name "hud_icon_21"
+          Pos 564 216
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass hud_icon_22 {
+          Name "hud_icon_22"
+          Pos 636 216
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass hud_icon_23 {
+          Name "hud_icon_23"
+          Pos 708 216
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass hud_icon_24 {
+          Name "hud_icon_24"
+          Pos 780 216
+          Size 56 56
+          Flags 0
+        }
+      }
+    }
+    ImageSetGroupClass Inventory {
+      Name "Inventory"
+      Images {
+        ImageSetDefClass inventory_icon_01 {
+          Name "inventory_icon_01"
+          Pos 840 0
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass inventory_icon_02 {
+          Name "inventory_icon_02"
+          Pos 912 0
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass inventory_icon_03 {
+          Name "inventory_icon_03"
+          Pos 984 0
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass inventory_icon_04 {
+          Name "inventory_icon_04"
+          Pos 1056 0
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass inventory_icon_05 {
+          Name "inventory_icon_05"
+          Pos 1128 0
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass inventory_icon_06 {
+          Name "inventory_icon_06"
+          Pos 1200 0
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass inventory_icon_07 {
+          Name "inventory_icon_07"
+          Pos 840 72
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass inventory_icon_08 {
+          Name "inventory_icon_08"
+          Pos 912 72
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass inventory_icon_09 {
+          Name "inventory_icon_09"
+          Pos 984 72
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass inventory_icon_10 {
+          Name "inventory_icon_10"
+          Pos 1056 72
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass inventory_icon_11 {
+          Name "inventory_icon_11"
+          Pos 1128 72
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass inventory_icon_12 {
+          Name "inventory_icon_12"
+          Pos 1200 72
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass inventory_icon_13 {
+          Name "inventory_icon_13"
+          Pos 840 144
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass inventory_icon_14 {
+          Name "inventory_icon_14"
+          Pos 912 144
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass inventory_icon_15 {
+          Name "inventory_icon_15"
+          Pos 984 144
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass inventory_icon_16 {
+          Name "inventory_icon_16"
+          Pos 1056 144
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass inventory_icon_17 {
+          Name "inventory_icon_17"
+          Pos 1128 144
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass inventory_icon_18 {
+          Name "inventory_icon_18"
+          Pos 1200 144
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass inventory_icon_19 {
+          Name "inventory_icon_19"
+          Pos 840 216
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass inventory_icon_20 {
+          Name "inventory_icon_20"
+          Pos 912 216
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass inventory_icon_21 {
+          Name "inventory_icon_21"
+          Pos 984 216
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass inventory_icon_22 {
+          Name "inventory_icon_22"
+          Pos 1056 216
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass inventory_icon_23 {
+          Name "inventory_icon_23"
+          Pos 1128 216
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass inventory_icon_24 {
+          Name "inventory_icon_24"
+          Pos 1200 216
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+      }
+    }
+    ImageSetGroupClass Actions {
+      Name "Actions"
+      Images {
+        ImageSetDefClass actions_icon_01 {
+          Name "actions_icon_01"
+          Pos 1260 0
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass actions_icon_02 {
+          Name "actions_icon_02"
+          Pos 1332 0
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass actions_icon_03 {
+          Name "actions_icon_03"
+          Pos 1404 0
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass actions_icon_04 {
+          Name "actions_icon_04"
+          Pos 1476 0
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass actions_icon_05 {
+          Name "actions_icon_05"
+          Pos 1548 0
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass actions_icon_06 {
+          Name "actions_icon_06"
+          Pos 1620 0
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass actions_icon_07 {
+          Name "actions_icon_07"
+          Pos 1260 72
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass actions_icon_08 {
+          Name "actions_icon_08"
+          Pos 1332 72
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass actions_icon_09 {
+          Name "actions_icon_09"
+          Pos 1404 72
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass actions_icon_10 {
+          Name "actions_icon_10"
+          Pos 1476 72
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass actions_icon_11 {
+          Name "actions_icon_11"
+          Pos 1548 72
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass actions_icon_12 {
+          Name "actions_icon_12"
+          Pos 1620 72
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass actions_icon_13 {
+          Name "actions_icon_13"
+          Pos 1260 144
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass actions_icon_14 {
+          Name "actions_icon_14"
+          Pos 1332 144
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass actions_icon_15 {
+          Name "actions_icon_15"
+          Pos 1404 144
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass actions_icon_16 {
+          Name "actions_icon_16"
+          Pos 1476 144
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass actions_icon_17 {
+          Name "actions_icon_17"
+          Pos 1548 144
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass actions_icon_18 {
+          Name "actions_icon_18"
+          Pos 1620 144
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass actions_icon_19 {
+          Name "actions_icon_19"
+          Pos 1260 216
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass actions_icon_20 {
+          Name "actions_icon_20"
+          Pos 1332 216
+          Size 56 56
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass actions_icon_21 {
+          Name "actions_icon_21"
+          Pos 1404 216
+          Size 56 56
+          Flags 3
+        }
+        ImageSetDefClass actions_icon_22 {
+          Name "actions_icon_22"
+          Pos 1476 216
+          Size 56 56
+          Flags 0
+        }
+        ImageSetDefClass actions_icon_23 {
+          Name "actions_icon_23"
+          Pos 1548 216
+          Size 56 56
+          Flags ISHorizontalTile
+        }
+        ImageSetDefClass actions_icon_24 {
+          Name "actions_icon_24"
+          Pos 1620 216
+          Size 56 56
+          Flags ISVerticalTile
+        }
+      }
+    }
+  }
+}

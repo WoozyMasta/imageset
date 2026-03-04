@@ -1,0 +1,477 @@
+ImageSetClass {
+  Name "mixed_demo"
+  RefSize 2048 1024
+  Textures {
+    ImageSetTextureClass {
+      mpix 1
+      path "gui/imagesets/mixed_demo.edds"
+    }
+    ImageSetTextureClass {
+      mpix 2
+      path "gui/imagesets/mixed_demo_2.edds"
+    }
+  }
+  Images {
+    ImageSetDefClass root_item_01 {
+      Name "root_item_01"
+      Pos 0 0
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass root_item_02 {
+      Name "root_item_02"
+      Pos 96 0
+      Size 56 54
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_03 {
+      Name "root_item_03"
+      Pos 192 0
+      Size 64 60
+      Flags 0
+    }
+    ImageSetDefClass root_item_04 {
+      Name "root_item_04"
+      Pos 288 0
+      Size 48 66
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_05 {
+      Name "root_item_05"
+      Pos 384 0
+      Size 56 48
+      Flags 0
+    }
+    ImageSetDefClass root_item_06 {
+      Name "root_item_06"
+      Pos 480 0
+      Size 64 54
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_07 {
+      Name "root_item_07"
+      Pos 576 0
+      Size 48 60
+      Flags 0
+    }
+    ImageSetDefClass root_item_08 {
+      Name "root_item_08"
+      Pos 672 0
+      Size 56 66
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_09 {
+      Name "root_item_09"
+      Pos 768 0
+      Size 64 48
+      Flags 0
+    }
+    ImageSetDefClass root_item_10 {
+      Name "root_item_10"
+      Pos 864 0
+      Size 48 54
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_11 {
+      Name "root_item_11"
+      Pos 0 96
+      Size 56 60
+      Flags 0
+    }
+    ImageSetDefClass root_item_12 {
+      Name "root_item_12"
+      Pos 96 96
+      Size 64 66
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_13 {
+      Name "root_item_13"
+      Pos 192 96
+      Size 48 48
+      Flags 0
+    }
+    ImageSetDefClass root_item_14 {
+      Name "root_item_14"
+      Pos 288 96
+      Size 56 54
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_15 {
+      Name "root_item_15"
+      Pos 384 96
+      Size 64 60
+      Flags 0
+    }
+    ImageSetDefClass root_item_16 {
+      Name "root_item_16"
+      Pos 480 96
+      Size 48 66
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_17 {
+      Name "root_item_17"
+      Pos 576 96
+      Size 56 48
+      Flags 0
+    }
+    ImageSetDefClass root_item_18 {
+      Name "root_item_18"
+      Pos 672 96
+      Size 64 54
+      Flags ISHorizontalTile
+    }
+    ImageSetDefClass root_item_19 {
+      Name "root_item_19"
+      Pos 768 96
+      Size 48 60
+      Flags 0
+    }
+    ImageSetDefClass root_item_20 {
+      Name "root_item_20"
+      Pos 864 96
+      Size 56 66
+      Flags ISHorizontalTile
+    }
+  }
+  Groups {
+    ImageSetGroupClass Controllers {
+      Name "Controllers"
+      Images {
+        ImageSetDefClass controllers_item_01 {
+          Name "controllers_item_01"
+          Pos 980 24
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_02 {
+          Name "controllers_item_02"
+          Pos 1066 24
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_03 {
+          Name "controllers_item_03"
+          Pos 1152 24
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_04 {
+          Name "controllers_item_04"
+          Pos 1238 24
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_05 {
+          Name "controllers_item_05"
+          Pos 1324 24
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_06 {
+          Name "controllers_item_06"
+          Pos 1410 24
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_07 {
+          Name "controllers_item_07"
+          Pos 980 110
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_08 {
+          Name "controllers_item_08"
+          Pos 1066 110
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_09 {
+          Name "controllers_item_09"
+          Pos 1152 110
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_10 {
+          Name "controllers_item_10"
+          Pos 1238 110
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_11 {
+          Name "controllers_item_11"
+          Pos 1324 110
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_12 {
+          Name "controllers_item_12"
+          Pos 1410 110
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_13 {
+          Name "controllers_item_13"
+          Pos 980 196
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_14 {
+          Name "controllers_item_14"
+          Pos 1066 196
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_15 {
+          Name "controllers_item_15"
+          Pos 1152 196
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_16 {
+          Name "controllers_item_16"
+          Pos 1238 196
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass controllers_item_17 {
+          Name "controllers_item_17"
+          Pos 1324 196
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass controllers_item_18 {
+          Name "controllers_item_18"
+          Pos 1410 196
+          Size 64 64
+          Flags 3
+        }
+      }
+    }
+    ImageSetGroupClass Menus {
+      Name "Menus"
+      Images {
+        ImageSetDefClass menus_item_01 {
+          Name "menus_item_01"
+          Pos 988 274
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_02 {
+          Name "menus_item_02"
+          Pos 1074 274
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_03 {
+          Name "menus_item_03"
+          Pos 1160 274
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_04 {
+          Name "menus_item_04"
+          Pos 1246 274
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_05 {
+          Name "menus_item_05"
+          Pos 1332 274
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_06 {
+          Name "menus_item_06"
+          Pos 1418 274
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_07 {
+          Name "menus_item_07"
+          Pos 988 360
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_08 {
+          Name "menus_item_08"
+          Pos 1074 360
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_09 {
+          Name "menus_item_09"
+          Pos 1160 360
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_10 {
+          Name "menus_item_10"
+          Pos 1246 360
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_11 {
+          Name "menus_item_11"
+          Pos 1332 360
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_12 {
+          Name "menus_item_12"
+          Pos 1418 360
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_13 {
+          Name "menus_item_13"
+          Pos 988 446
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_14 {
+          Name "menus_item_14"
+          Pos 1074 446
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_15 {
+          Name "menus_item_15"
+          Pos 1160 446
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_16 {
+          Name "menus_item_16"
+          Pos 1246 446
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass menus_item_17 {
+          Name "menus_item_17"
+          Pos 1332 446
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass menus_item_18 {
+          Name "menus_item_18"
+          Pos 1418 446
+          Size 64 64
+          Flags ISVerticalTile
+        }
+      }
+    }
+    ImageSetGroupClass Notifications {
+      Name "Notifications"
+      Images {
+        ImageSetDefClass notifications_item_01 {
+          Name "notifications_item_01"
+          Pos 996 524
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_02 {
+          Name "notifications_item_02"
+          Pos 1082 524
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_03 {
+          Name "notifications_item_03"
+          Pos 1168 524
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_04 {
+          Name "notifications_item_04"
+          Pos 1254 524
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_05 {
+          Name "notifications_item_05"
+          Pos 1340 524
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_06 {
+          Name "notifications_item_06"
+          Pos 1426 524
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_07 {
+          Name "notifications_item_07"
+          Pos 996 610
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_08 {
+          Name "notifications_item_08"
+          Pos 1082 610
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_09 {
+          Name "notifications_item_09"
+          Pos 1168 610
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_10 {
+          Name "notifications_item_10"
+          Pos 1254 610
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_11 {
+          Name "notifications_item_11"
+          Pos 1340 610
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_12 {
+          Name "notifications_item_12"
+          Pos 1426 610
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_13 {
+          Name "notifications_item_13"
+          Pos 996 696
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_14 {
+          Name "notifications_item_14"
+          Pos 1082 696
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_15 {
+          Name "notifications_item_15"
+          Pos 1168 696
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_16 {
+          Name "notifications_item_16"
+          Pos 1254 696
+          Size 64 64
+          Flags 3
+        }
+        ImageSetDefClass notifications_item_17 {
+          Name "notifications_item_17"
+          Pos 1340 696
+          Size 64 64
+          Flags ISVerticalTile
+        }
+        ImageSetDefClass notifications_item_18 {
+          Name "notifications_item_18"
+          Pos 1426 696
+          Size 64 64
+          Flags 3
+        }
+      }
+    }
+  }
+}
