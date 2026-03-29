@@ -72,7 +72,6 @@ rules:
     scope_description: Image set semantic validation diagnostics.
     code: IMGSET2009
     message: '`group` name must be unique'
-    description: Group lookup can use group_name + '_' + image_name path patterns.
     default_severity: error
   - id: imageset.validate.group-images-section-is-empty
     module: imageset

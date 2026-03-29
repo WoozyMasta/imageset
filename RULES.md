@@ -146,8 +146,6 @@ Codes:
 
 `Group` name must be unique
 
-> Group lookup can use group_name + '_' + image_name path patterns.
-
 | Field | Value |
 | --- | --- |
 | Rule ID | `imageset.validate.group-name-must-be-unique` |
