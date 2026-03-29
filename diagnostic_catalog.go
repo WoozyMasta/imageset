@@ -69,13 +69,10 @@ var diagnosticCatalog = []lint.CodeSpec{
 		StageValidate,
 		"`group` name must be non-empty",
 	),
-	withDescription(
-		lint.ErrorCodeSpec(
-			CodeValidateGroupNameDuplicate,
-			StageValidate,
-			"`group` name must be unique",
-		),
-		"Group lookup can use group_name + '_' + image_name path patterns.",
+	lint.ErrorCodeSpec(
+		CodeValidateGroupNameDuplicate,
+		StageValidate,
+		"`group` name must be unique",
 	),
 	withDescription(
 		lint.WarningCodeSpec(
