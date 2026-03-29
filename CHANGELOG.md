@@ -13,6 +13,18 @@ and this project adheres to [Semantic Versioning][].
 ### Removed
 -->
 
+## [0.3.0][] - 2026-03-29
+
+### Changed
+
+* lint flow is now lintkit-first and uses `lint.Diagnostic` end-to-end
+* `ValidationError.Diagnostics` now stores `[]lint.Diagnostic`
+* `AttachLintDiagnostics` now accepts `[]lint.Diagnostic`
+
+### Removed
+
+* internal imageset diagnostic adapter layer (`diagnostic_lint.go`)
+
 ## [0.2.0][] - 2026-03-29
 
 ### Added
@@ -28,6 +40,7 @@ and this project adheres to [Semantic Versioning][].
 * Parser is strict for unknown/context-invalid fields
 
 [0.2.0]: https://github.com/WoozyMasta/imageset/compare/v0.1.0...v0.2.0
+[0.3.0]: https://github.com/WoozyMasta/imageset/compare/v0.2.0...v0.3.0
 
 ## [0.1.0][] - 2026-xx-xx
 
