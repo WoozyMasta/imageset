@@ -193,6 +193,14 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 
 		switch {
 		case equalToken(key, "Name"):
+			if currentTexture != nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q in texture block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+
 			value := parseStringValueBytes(rawValue)
 			switch {
 			case currentImage != nil:
@@ -206,6 +214,14 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 			}
 
 		case equalToken(key, "RefSize"):
+			if currentTexture != nil || currentImage != nil || currentGroup != nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q in nested block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+
 			if len(rawValue) == 0 {
 				return nil, newParseError(lineNumber, "invalid RefSize", ErrInvalidSyntax)
 			}
@@ -217,7 +233,14 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 			document.RefSize = size
 
 		case equalToken(key, "Pos"):
-			if currentImage == nil || len(rawValue) == 0 {
+			if currentImage == nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q outside image block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+			if len(rawValue) == 0 {
 				return nil, newParseError(lineNumber, "invalid Pos", ErrInvalidSyntax)
 			}
 
@@ -228,7 +251,14 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 			currentImage.Pos = point
 
 		case equalToken(key, "Size"):
-			if currentImage == nil || len(rawValue) == 0 {
+			if currentImage == nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q outside image block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+			if len(rawValue) == 0 {
 				return nil, newParseError(lineNumber, "invalid Size", ErrInvalidSyntax)
 			}
 
@@ -239,7 +269,14 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 			currentImage.Size = size
 
 		case equalToken(key, "Flags"):
-			if currentImage == nil || len(rawValue) == 0 {
+			if currentImage == nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q outside image block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+			if len(rawValue) == 0 {
 				return nil, newParseError(lineNumber, "invalid Flags", ErrInvalidSyntax)
 			}
 
@@ -250,7 +287,14 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 			currentImage.Flags = flags
 
 		case equalToken(key, "mpix"), equalToken(key, "Mpix"):
-			if currentTexture == nil || len(rawValue) == 0 {
+			if currentTexture == nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q outside texture block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+			if len(rawValue) == 0 {
 				return nil, newParseError(lineNumber, "invalid mpix", ErrInvalidSyntax)
 			}
 
@@ -261,13 +305,24 @@ func parseFromReader(reader io.Reader) (*Document, error) {
 			currentTexture.Mpix = value
 
 		case equalToken(key, "path"), equalToken(key, "Path"):
-			if currentTexture == nil || len(rawValue) == 0 {
+			if currentTexture == nil {
+				return nil, newParseError(
+					lineNumber,
+					fmt.Sprintf(`unexpected field %q outside texture block`, string(key)),
+					ErrInvalidSyntax,
+				)
+			}
+			if len(rawValue) == 0 {
 				return nil, newParseError(lineNumber, "invalid path", ErrInvalidSyntax)
 			}
 			currentTexture.Path = parseStringValueBytes(rawValue)
 
 		default:
-			// keep parser tolerant for unknown fields.
+			return nil, newParseError(
+				lineNumber,
+				fmt.Sprintf(`unknown field %q`, string(key)),
+				ErrInvalidSyntax,
+			)
 		}
 	}
 

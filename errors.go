@@ -7,6 +7,8 @@ package imageset
 import (
 	"errors"
 	"fmt"
+
+	"github.com/woozymasta/lintkit/lint"
 )
 
 var (
@@ -18,6 +20,9 @@ var (
 
 	// ErrUnknownFlag means a flag token is not recognized.
 	ErrUnknownFlag = errors.New("imageset: unknown flag")
+
+	// ErrNilLintRuleRegistrar indicates nil lint rule registrar in registration.
+	ErrNilLintRuleRegistrar = lint.ErrNilRuleRegistrar
 )
 
 // ParseError reports parse failure with line context.

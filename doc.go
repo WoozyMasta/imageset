@@ -10,7 +10,8 @@ The package centers around Document:
 
   - Parse/ParseBytes/ParseFile read .imageset text into Document
   - Write/Format serialize Document back to canonical text form
-  - Validate checks semantic constraints
+  - Validate checks semantic constraints with stable diagnostic codes
+  - ValidateWithOptions enables optional checks such as padding
 
 Common flow:
 
@@ -21,5 +22,12 @@ Common flow:
 	if err := imageset.Validate(doc); err != nil {
 		// handle validation diagnostics
 	}
+
+lintkit integration:
+  - DiagnosticCatalog / DiagnosticByCode expose stable metadata by code.
+  - RegisterLintRules / LintRulesProvider register rule runners.
+  - RegisterLintRulesByScope / RegisterLintRulesByStage apply filtered
+    registration.
+  - AttachLintDiagnostics passes diagnostics into lintkit run context values.
 */
 package imageset

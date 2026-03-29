@@ -183,3 +183,24 @@ func TestParseMissingRoot(t *testing.T) {
 		t.Fatalf("expected ParseError, got %T", err)
 	}
 }
+
+func TestParseUnknownFieldFails(t *testing.T) {
+	t.Parallel()
+
+	_, err := ParseString(`ImageSetClass {
+	Name "ui"
+	RefSize 64 64
+	UnknownField 1
+}`)
+	if err == nil {
+		t.Fatal("expected unknown field parse error")
+	}
+
+	var parseErr *ParseError
+	if !errors.As(err, &parseErr) {
+		t.Fatalf("expected ParseError, got %T", err)
+	}
+	if !strings.Contains(parseErr.Error(), "unknown field") {
+		t.Fatalf("unexpected error: %v", parseErr)
+	}
+}

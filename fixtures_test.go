@@ -5,9 +5,12 @@
 package imageset
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/woozymasta/lintkit/lint"
 )
 
 // fixtureCase describes one synthetic testdata file and expected structure.
@@ -102,10 +105,30 @@ func TestSyntheticFixturesParse(t *testing.T) {
 			}
 
 			if err := Validate(doc); err != nil {
-				t.Fatalf("Validate(%s): %v", fixture.file, err)
+				var validationErr *ValidationError
+				if !errors.As(err, &validationErr) {
+					t.Fatalf("Validate(%s): %v", fixture.file, err)
+				}
+
+				if thresholdErr := lint.ErrorFromDiagnostics(
+					convertDiagnostics(validationErr.Diagnostics),
+					lint.SeverityError,
+				); thresholdErr != nil {
+					t.Fatalf("Validate(%s): %v", fixture.file, thresholdErr)
+				}
 			}
 		})
 	}
+}
+
+// convertDiagnostics maps local diagnostics to shared lint diagnostics.
+func convertDiagnostics(items []Diagnostic) []lint.Diagnostic {
+	out := make([]lint.Diagnostic, 0, len(items))
+	for _, item := range items {
+		out = append(out, item.LintDiagnostic())
+	}
+
+	return out
 }
 
 // readFixtureBytes reads fixture file content from testdata.
