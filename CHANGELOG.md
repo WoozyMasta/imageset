@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning][].
 ### Removed
 -->
 
+## [0.2.0][] - 2026-03-29
+
+### Added
+
+* `ValidateWithOptions(...)` and `ValidateOptions`
+  for configurable validation behavior
+  (including optional image padding checks)
+* `lintkit` integration surface
+  for rule registration and diagnostics catalog export.
+
+### Changed
+
+* Parser is strict for unknown/context-invalid fields
+
+[0.2.0]: https://github.com/WoozyMasta/imageset/compare/v0.1.0...v0.2.0
+
 ## [0.1.0][] - 2026-xx-xx
 
 ### Added
