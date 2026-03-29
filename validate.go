@@ -57,11 +57,12 @@ type ImagePaddingRuleOptions struct {
 
 // imageRectRef stores image rectangle metadata for pair checks.
 type imageRectRef struct {
-	path string
-	x    int
-	y    int
-	w    int
-	h    int
+	groupIndex int
+	imageIndex int
+	x          int
+	y          int
+	w          int
+	h          int
 }
 
 // Error formats validation diagnostics as one sentence.
@@ -335,8 +336,8 @@ func collectImagePairDiagnostics(
 			if dx == 0 && dy == 0 {
 				diagnostics = append(diagnostics, warningDiagnostic(
 					CodeValidateImageOverlap,
-					right.path,
-					"overlaps with "+left.path,
+					imagePath(right.groupIndex, right.imageIndex),
+					"overlaps with "+imagePath(left.groupIndex, left.imageIndex),
 				))
 				continue
 			}
@@ -351,8 +352,9 @@ func collectImagePairDiagnostics(
 
 			diagnostics = append(diagnostics, warningDiagnostic(
 				CodeValidateImagePaddingTooSmall,
-				right.path,
-				"padding to "+left.path+" is "+strconv.Itoa(maxInt(dx, dy))+
+				imagePath(right.groupIndex, right.imageIndex),
+				"padding to "+imagePath(left.groupIndex, left.imageIndex)+" is "+
+					strconv.Itoa(maxInt(dx, dy))+
 					", expected >= "+strconv.Itoa(options.MinPadding),
 			))
 		}
@@ -371,21 +373,23 @@ func collectImageRects(document *Document) []imageRectRef {
 	out := make([]imageRectRef, 0, total)
 	for imageIndex, item := range document.Images {
 		out = append(out, imageRectRef{
-			path: imagePath(-1, imageIndex),
-			x:    item.Pos.X,
-			y:    item.Pos.Y,
-			w:    item.Size.Width,
-			h:    item.Size.Height,
+			groupIndex: -1,
+			imageIndex: imageIndex,
+			x:          item.Pos.X,
+			y:          item.Pos.Y,
+			w:          item.Size.Width,
+			h:          item.Size.Height,
 		})
 	}
 	for groupIndex, group := range document.Groups {
 		for imageIndex, item := range group.Images {
 			out = append(out, imageRectRef{
-				path: imagePath(groupIndex, imageIndex),
-				x:    item.Pos.X,
-				y:    item.Pos.Y,
-				w:    item.Size.Width,
-				h:    item.Size.Height,
+				groupIndex: groupIndex,
+				imageIndex: imageIndex,
+				x:          item.Pos.X,
+				y:          item.Pos.Y,
+				w:          item.Size.Width,
+				h:          item.Size.Height,
 			})
 		}
 	}

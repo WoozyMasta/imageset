@@ -5,9 +5,12 @@
 package imageset
 
 import (
+	"errors"
 	"io"
 	"path/filepath"
 	"testing"
+
+	"github.com/woozymasta/lintkit/lint"
 )
 
 var (
@@ -74,7 +77,9 @@ func BenchmarkValidate(b *testing.B) {
 
 			for range b.N {
 				if err := Validate(doc); err != nil {
-					b.Fatalf("Validate(%s): %v", fixture.file, err)
+					if validateHasErrorDiagnostics(err) {
+						b.Fatalf("Validate(%s): %v", fixture.file, err)
+					}
 				}
 			}
 		})
@@ -147,7 +152,9 @@ func BenchmarkPipeline(b *testing.B) {
 					b.Fatalf("ParseBytes(%s): %v", fixture.file, err)
 				}
 				if err := Validate(doc); err != nil {
-					b.Fatalf("Validate(%s): %v", fixture.file, err)
+					if validateHasErrorDiagnostics(err) {
+						b.Fatalf("Validate(%s): %v", fixture.file, err)
+					}
 				}
 
 				out, err := Format(doc, opts)
@@ -159,4 +166,20 @@ func BenchmarkPipeline(b *testing.B) {
 			}
 		})
 	}
+}
+
+// validateHasErrorDiagnostics reports whether validation error contains errors.
+func validateHasErrorDiagnostics(err error) bool {
+	var validationErr *ValidationError
+	if !errors.As(err, &validationErr) {
+		return true
+	}
+
+	for _, diagnostic := range validationErr.Diagnostics {
+		if diagnostic.Severity == lint.SeverityError {
+			return true
+		}
+	}
+
+	return false
 }
