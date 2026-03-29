@@ -22,7 +22,7 @@ var (
 		once sync.Once
 
 		// binding stores reusable register+attach helper.
-		binding lint.CodeCatalogBinding[Diagnostic]
+		binding lint.CodeCatalogBinding[lint.Diagnostic]
 
 		// err stores binding construction error.
 		err error
@@ -58,7 +58,7 @@ func (provider LintRulesProvider) RegisterRulesByStage(
 // RegisterLintRules registers stable imageset rules into registrar.
 func RegisterLintRules(registrar lint.RuleRegistrar) error {
 	return registerLintRulesWithBinding(registrar, func(
-		binding lint.CodeCatalogBinding[Diagnostic],
+		binding lint.CodeCatalogBinding[lint.Diagnostic],
 	) error {
 		return binding.RegisterRules(registrar)
 	})
@@ -70,7 +70,7 @@ func RegisterLintRulesByScope(
 	scopes ...string,
 ) error {
 	return registerLintRulesWithBinding(registrar, func(
-		binding lint.CodeCatalogBinding[Diagnostic],
+		binding lint.CodeCatalogBinding[lint.Diagnostic],
 	) error {
 		return binding.RegisterRulesByScope(registrar, scopes...)
 	})
@@ -82,7 +82,7 @@ func RegisterLintRulesByStage(
 	stages ...lint.Stage,
 ) error {
 	return registerLintRulesWithBinding(registrar, func(
-		binding lint.CodeCatalogBinding[Diagnostic],
+		binding lint.CodeCatalogBinding[lint.Diagnostic],
 	) error {
 		return binding.RegisterRulesByStage(registrar, stages...)
 	})
@@ -91,7 +91,7 @@ func RegisterLintRulesByStage(
 // registerLintRulesWithBinding validates registrar and executes binding callback.
 func registerLintRulesWithBinding(
 	registrar lint.RuleRegistrar,
-	register func(binding lint.CodeCatalogBinding[Diagnostic]) error,
+	register func(binding lint.CodeCatalogBinding[lint.Diagnostic]) error,
 ) error {
 	if registrar == nil {
 		return ErrNilLintRuleRegistrar
@@ -106,7 +106,7 @@ func registerLintRulesWithBinding(
 }
 
 // AttachLintDiagnostics stores diagnostics in run context values.
-func AttachLintDiagnostics(run *lint.RunContext, diagnostics []Diagnostic) {
+func AttachLintDiagnostics(run *lint.RunContext, diagnostics []lint.Diagnostic) {
 	binding, err := getLintBinding()
 	if err != nil {
 		return
@@ -116,7 +116,7 @@ func AttachLintDiagnostics(run *lint.RunContext, diagnostics []Diagnostic) {
 }
 
 // getLintBinding returns lazy-initialized code-catalog binding helper.
-func getLintBinding() (lint.CodeCatalogBinding[Diagnostic], error) {
+func getLintBinding() (lint.CodeCatalogBinding[lint.Diagnostic], error) {
 	lintBindingState.once.Do(func() {
 		catalog, err := getDiagnosticCodeCatalog()
 		if err != nil {
@@ -125,21 +125,31 @@ func getLintBinding() (lint.CodeCatalogBinding[Diagnostic], error) {
 		}
 
 		lintBindingState.binding, lintBindingState.err = lint.NewCodeCatalogBinding(
-			lint.CodeCatalogBindingConfig[Diagnostic]{
-				RunValueKey: lintRunValueByCodeKey,
-				Catalog:     catalog,
-				CodeFromDiagnostic: func(item Diagnostic) lint.Code {
-					return item.Code
+			lint.CodeCatalogBindingConfig[lint.Diagnostic]{
+				RunValueKey:        lintRunValueByCodeKey,
+				Catalog:            catalog,
+				CodeFromDiagnostic: lintDiagnosticCode,
+				DiagnosticToLint: func(item lint.Diagnostic) lint.Diagnostic {
+					return item
 				},
-				DiagnosticToLint:  Diagnostic.LintDiagnostic,
 				UnknownCodePolicy: lint.UnknownCodeDrop,
 			},
 		)
 	})
 
 	if lintBindingState.err != nil {
-		return lint.CodeCatalogBinding[Diagnostic]{}, lintBindingState.err
+		return lint.CodeCatalogBinding[lint.Diagnostic]{}, lintBindingState.err
 	}
 
 	return lintBindingState.binding, nil
+}
+
+// lintDiagnosticCode extracts numeric code from one lint diagnostic item.
+func lintDiagnosticCode(item lint.Diagnostic) lint.Code {
+	code, ok := lint.ParsePublicCode(item.Code)
+	if !ok {
+		return 0
+	}
+
+	return code
 }

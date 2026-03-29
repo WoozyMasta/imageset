@@ -5,7 +5,6 @@
 package imageset
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -13,17 +12,9 @@ import (
 	"github.com/woozymasta/lintkit/lint"
 )
 
-// Diagnostic describes one validation issue.
-type Diagnostic struct {
-	Severity lint.Severity `json:"severity" yaml:"severity"` // Issue level.
-	Path     string        `json:"path" yaml:"path"`         // Field path.
-	Message  string        `json:"message" yaml:"message"`   // Human message.
-	Code     lint.Code     `json:"code" yaml:"code"`         // Stable code.
-}
-
 // ValidationError aggregates semantic validation diagnostics.
 type ValidationError struct {
-	Diagnostics []Diagnostic `json:"diagnostics" yaml:"diagnostics"` // Issues list.
+	Diagnostics []lint.Diagnostic `json:"diagnostics" yaml:"diagnostics"` // Issues list.
 }
 
 // imageNameRef stores first-seen image location for duplicate checks.
@@ -38,6 +29,9 @@ const knownImageFlagMask = FlagHorizontalTile | FlagVerticalTile
 const (
 	// defaultMinImagePadding stores default minimum gap for optional padding check.
 	defaultMinImagePadding = 4
+
+	// lintPublicCodePrefix stores exported code prefix for diagnostics.
+	lintPublicCodePrefix = "IMGSET"
 )
 
 // ValidateOptions configures optional semantic checks.
@@ -102,17 +96,11 @@ func (e *ValidationError) Error() string {
 		return "imageset: validation failed"
 	}
 
-	first := e.Diagnostics[0]
-	if len(e.Diagnostics) == 1 {
-		return fmt.Sprintf("imageset: %s: %s", first.Path, first.Message)
+	if err := lint.ErrorFromDiagnostics(e.Diagnostics, lint.SeverityNotice); err != nil {
+		return err.Error()
 	}
 
-	return fmt.Sprintf(
-		"imageset: %s: %s (and %d more)",
-		first.Path,
-		first.Message,
-		len(e.Diagnostics)-1,
-	)
+	return "imageset: validation failed"
 }
 
 // Validate checks semantic constraints and returns aggregated error.
@@ -152,30 +140,16 @@ func resolveValidateOptions(options *ValidateOptions) ValidateOptions {
 	return resolved
 }
 
-// errorDiagnostic builds one error-level diagnostic.
-func errorDiagnostic(code lint.Code, path string, message string) Diagnostic {
-	return diagnostic(code, lint.SeverityError, path, message)
-}
-
-// warningDiagnostic builds one warning-level diagnostic.
-func warningDiagnostic(code lint.Code, path string, message string) Diagnostic {
-	return diagnostic(code, lint.SeverityWarning, path, message)
-}
-
-// infoDiagnostic builds one info-level diagnostic.
-func infoDiagnostic(code lint.Code, path string, message string) Diagnostic {
-	return diagnostic(code, lint.SeverityInfo, path, message)
-}
-
 // diagnostic builds one diagnostic with explicit severity.
 func diagnostic(
 	code lint.Code,
 	severity lint.Severity,
 	path string,
 	message string,
-) Diagnostic {
-	return Diagnostic{
-		Code:     code,
+) lint.Diagnostic {
+	return lint.Diagnostic{
+		RuleID:   LintRuleID(code),
+		Code:     publicLintCode(code),
 		Severity: severity,
 		Path:     path,
 		Message:  message,
@@ -183,14 +157,18 @@ func diagnostic(
 }
 
 // collectDiagnostics performs semantic checks and collects issues.
-func collectDiagnostics(document *Document, options ValidateOptions) []Diagnostic {
-	diagnostics := make([]Diagnostic, 0, 8)
+func collectDiagnostics(
+	document *Document,
+	options ValidateOptions,
+) []lint.Diagnostic {
+	diagnostics := make([]lint.Diagnostic, 0, 8)
 
 	if document.RefSize.Width <= 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateRefSizeWidthNonPositive,
+				lint.SeverityError,
 				"ref_size.width",
 				"must be > 0",
 			),
@@ -199,8 +177,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 	if document.RefSize.Height <= 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateRefSizeHeightNonPositive,
+				lint.SeverityError,
 				"ref_size.height",
 				"must be > 0",
 			),
@@ -209,8 +188,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 	if document.RefSize.Width > 0 && !isPowerOfTwo(document.RefSize.Width) {
 		diagnostics = append(
 			diagnostics,
-			warningDiagnostic(
+			diagnostic(
 				CodeValidateRefSizeNonPowerOfTwo,
+				lint.SeverityWarning,
 				"ref_size.width",
 				"should be a power of two",
 			),
@@ -219,8 +199,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 	if document.RefSize.Height > 0 && !isPowerOfTwo(document.RefSize.Height) {
 		diagnostics = append(
 			diagnostics,
-			warningDiagnostic(
+			diagnostic(
 				CodeValidateRefSizeNonPowerOfTwo,
+				lint.SeverityWarning,
 				"ref_size.height",
 				"should be a power of two",
 			),
@@ -230,8 +211,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 	if len(document.Textures) == 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateTexturesEmpty,
+				lint.SeverityError,
 				"textures",
 				"must contain at least one texture",
 			),
@@ -241,8 +223,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 	if len(document.Images) == 0 {
 		diagnostics = append(
 			diagnostics,
-			warningDiagnostic(
+			diagnostic(
 				CodeValidateImagesEmpty,
+				lint.SeverityWarning,
 				"images",
 				"root images section is empty",
 			),
@@ -256,8 +239,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 		if strings.TrimSpace(texture.Path) == "" {
 			diagnostics = append(
 				diagnostics,
-				errorDiagnostic(
+				diagnostic(
 					CodeValidateTexturePathEmpty,
+					lint.SeverityError,
 					textureFieldPath(textureIndex, "path"),
 					"must be non-empty",
 				),
@@ -266,8 +250,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 		if texture.Mpix < 0 {
 			diagnostics = append(
 				diagnostics,
-				errorDiagnostic(
+				diagnostic(
 					CodeValidateTextureMpixNegative,
+					lint.SeverityError,
 					textureFieldPath(textureIndex, "mpix"),
 					"must be >= 0",
 				),
@@ -293,8 +278,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 		if groupName == "" {
 			diagnostics = append(
 				diagnostics,
-				errorDiagnostic(
+				diagnostic(
 					CodeValidateGroupNameEmpty,
+					lint.SeverityError,
 					groupFieldPath(groupIndex, "name"),
 					"must be non-empty",
 				),
@@ -302,8 +288,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 		} else if firstIndex, exists := groupNames[groupName]; exists {
 			diagnostics = append(
 				diagnostics,
-				errorDiagnostic(
+				diagnostic(
 					CodeValidateGroupNameDuplicate,
+					lint.SeverityError,
 					groupFieldPath(groupIndex, "name"),
 					"duplicate name, first seen at "+
 						groupFieldPath(firstIndex, "name"),
@@ -316,8 +303,9 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 		if len(group.Images) == 0 {
 			diagnostics = append(
 				diagnostics,
-				warningDiagnostic(
+				diagnostic(
 					CodeValidateGroupImagesEmpty,
+					lint.SeverityWarning,
 					groupFieldPath(groupIndex, "images"),
 					"group images section is empty",
 				),
@@ -350,13 +338,13 @@ func collectDiagnostics(document *Document, options ValidateOptions) []Diagnosti
 func collectImagePairDiagnostics(
 	document *Document,
 	options ValidateOptions,
-) []Diagnostic {
+) []lint.Diagnostic {
 	images := collectImageRects(document)
 	if len(images) < 2 {
 		return nil
 	}
 
-	diagnostics := make([]Diagnostic, 0)
+	diagnostics := make([]lint.Diagnostic, 0)
 
 	for leftIndex := 0; leftIndex < len(images)-1; leftIndex++ {
 		left := images[leftIndex]
@@ -373,8 +361,9 @@ func collectImagePairDiagnostics(
 
 			dx, dy := rectDistance(left, right)
 			if dx == 0 && dy == 0 {
-				diagnostics = append(diagnostics, warningDiagnostic(
+				diagnostics = append(diagnostics, diagnostic(
 					CodeValidateImageOverlap,
+					lint.SeverityWarning,
 					imagePath(right.groupIndex, right.imageIndex),
 					"overlaps with "+imagePath(left.groupIndex, left.imageIndex),
 				))
@@ -389,8 +378,9 @@ func collectImagePairDiagnostics(
 				continue
 			}
 
-			diagnostics = append(diagnostics, warningDiagnostic(
+			diagnostics = append(diagnostics, diagnostic(
 				CodeValidateImagePaddingTooSmall,
+				lint.SeverityWarning,
 				imagePath(right.groupIndex, right.imageIndex),
 				"padding to "+imagePath(left.groupIndex, left.imageIndex)+" is "+
 					strconv.Itoa(maxInt(dx, dy))+
@@ -473,13 +463,13 @@ func maxInt(left int, right int) int {
 
 // validateImage validates one image and updates diagnostics.
 func validateImage(
-	diagnostics []Diagnostic,
+	diagnostics []lint.Diagnostic,
 	item Image,
 	groupIndex, imageIndex int,
 	refSize Size,
 	scopeNames map[string]imageNameRef,
 	globalNames map[string]imageNameRef,
-) []Diagnostic {
+) []lint.Diagnostic {
 	name := strings.TrimSpace(item.Name)
 	namePath := ""
 	getNamePath := func() string {
@@ -493,8 +483,9 @@ func validateImage(
 	if name == "" {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImageNameEmpty,
+				lint.SeverityError,
 				getNamePath(),
 				"must be non-empty",
 			),
@@ -504,8 +495,9 @@ func validateImage(
 		if exists {
 			diagnostics = append(
 				diagnostics,
-				errorDiagnostic(
+				diagnostic(
 					CodeValidateImageNameDuplicate,
+					lint.SeverityError,
 					getNamePath(),
 					"duplicate name, first seen at "+
 						imageFieldPath(
@@ -526,8 +518,9 @@ func validateImage(
 		if globalExists {
 			diagnostics = append(
 				diagnostics,
-				infoDiagnostic(
+				diagnostic(
 					CodeValidateImageNameDuplicateGlobal,
+					lint.SeverityInfo,
 					getNamePath(),
 					"duplicate global name, first seen at "+
 						imageFieldPath(
@@ -548,8 +541,9 @@ func validateImage(
 	if item.Pos.X < 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImagePosXNegative,
+				lint.SeverityError,
 				imageFieldPath(groupIndex, imageIndex, "pos.x"),
 				"must be >= 0",
 			),
@@ -558,8 +552,9 @@ func validateImage(
 	if item.Pos.Y < 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImagePosYNegative,
+				lint.SeverityError,
 				imageFieldPath(groupIndex, imageIndex, "pos.y"),
 				"must be >= 0",
 			),
@@ -569,8 +564,9 @@ func validateImage(
 	if item.Size.Width <= 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImageWidthNonPositive,
+				lint.SeverityError,
 				imageFieldPath(groupIndex, imageIndex, "size.width"),
 				"must be > 0",
 			),
@@ -579,8 +575,9 @@ func validateImage(
 	if item.Size.Height <= 0 {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImageHeightNonPositive,
+				lint.SeverityError,
 				imageFieldPath(groupIndex, imageIndex, "size.height"),
 				"must be > 0",
 			),
@@ -596,8 +593,9 @@ func validateImage(
 
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImageFlagsUnsupportedMask,
+				lint.SeverityError,
 				imageFieldPath(groupIndex, imageIndex, "flags"),
 				message,
 			),
@@ -610,8 +608,9 @@ func validateImage(
 		item.Pos.X+item.Size.Width > refSize.Width {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImageOutOfBoundsWidth,
+				lint.SeverityError,
 				imagePath(groupIndex, imageIndex),
 				"out of bounds by width against ref_size",
 			),
@@ -624,8 +623,9 @@ func validateImage(
 		item.Pos.Y+item.Size.Height > refSize.Height {
 		diagnostics = append(
 			diagnostics,
-			errorDiagnostic(
+			diagnostic(
 				CodeValidateImageOutOfBoundsHeight,
+				lint.SeverityError,
 				imagePath(groupIndex, imageIndex),
 				"out of bounds by height against ref_size",
 			),
@@ -658,6 +658,16 @@ func imagePath(groupIndex, imageIndex int) string {
 // imageFieldPath returns image item field path in root or group section.
 func imageFieldPath(groupIndex, imageIndex int, field string) string {
 	return imagePath(groupIndex, imageIndex) + "." + field
+}
+
+// publicLintCode formats exported lint code token with module prefix.
+func publicLintCode(code lint.Code) string {
+	digits := lint.FormatCode(code)
+	if digits == "" {
+		return ""
+	}
+
+	return lintPublicCodePrefix + digits
 }
 
 // isPowerOfTwo reports whether positive integer value is a power of two.

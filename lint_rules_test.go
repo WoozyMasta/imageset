@@ -106,9 +106,10 @@ func TestAttachLintDiagnostics(t *testing.T) {
 	t.Parallel()
 
 	run := lint.RunContext{}
-	diagnostics := []Diagnostic{
-		errorDiagnostic(
+	diagnostics := []lint.Diagnostic{
+		diagnostic(
 			CodeValidateImageNameDuplicate,
+			lint.SeverityError,
 			"images[1].name",
 			"duplicate name",
 		),
@@ -116,7 +117,7 @@ func TestAttachLintDiagnostics(t *testing.T) {
 
 	AttachLintDiagnostics(&run, diagnostics)
 
-	grouped, ok := lint.GetIndexedByCode[Diagnostic, lint.Code](
+	grouped, ok := lint.GetIndexedByCode[lint.Diagnostic, lint.Code](
 		&run,
 		lintRunValueByCodeKey,
 	)
@@ -132,31 +133,20 @@ func TestAttachLintDiagnostics(t *testing.T) {
 	}
 }
 
-func TestDiagnosticLintDiagnostic(t *testing.T) {
+func TestLintDiagnosticCode(t *testing.T) {
 	t.Parallel()
 
-	diagnostic := Diagnostic{
-		Code:     CodeValidateImageOutOfBoundsWidth,
-		Severity: lint.SeverityError,
-		Path:     "images[2]",
-		Message:  "out of bounds by width against ref_size",
-	}
-
-	normalized := diagnostic.LintDiagnostic()
-	if normalized.RuleID != LintRuleID(CodeValidateImageOutOfBoundsWidth) {
+	item := lint.Diagnostic{Code: publicLintCode(CodeValidateImageOutOfBoundsWidth)}
+	got := lintDiagnosticCode(item)
+	if got != CodeValidateImageOutOfBoundsWidth {
 		t.Fatalf(
-			"RuleID=%q, want %q",
-			normalized.RuleID,
-			LintRuleID(CodeValidateImageOutOfBoundsWidth),
+			"lintDiagnosticCode()=%d, want %d",
+			got,
+			CodeValidateImageOutOfBoundsWidth,
 		)
 	}
-	if normalized.Severity != lint.SeverityError {
-		t.Fatalf("Severity=%q, want %q", normalized.Severity, lint.SeverityError)
-	}
-	if normalized.Path != diagnostic.Path {
-		t.Fatalf("Path=%q, want %q", normalized.Path, diagnostic.Path)
-	}
-	if normalized.Message != diagnostic.Message {
-		t.Fatalf("Message=%q, want %q", normalized.Message, diagnostic.Message)
+
+	if got := lintDiagnosticCode(lint.Diagnostic{Code: ""}); got != 0 {
+		t.Fatalf("lintDiagnosticCode(empty)=%d, want 0", got)
 	}
 }

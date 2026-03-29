@@ -111,7 +111,7 @@ func TestSyntheticFixturesParse(t *testing.T) {
 				}
 
 				if thresholdErr := lint.ErrorFromDiagnostics(
-					convertDiagnostics(validationErr.Diagnostics),
+					validationErr.Diagnostics,
 					lint.SeverityError,
 				); thresholdErr != nil {
 					t.Fatalf("Validate(%s): %v", fixture.file, thresholdErr)
@@ -119,16 +119,6 @@ func TestSyntheticFixturesParse(t *testing.T) {
 			}
 		})
 	}
-}
-
-// convertDiagnostics maps local diagnostics to shared lint diagnostics.
-func convertDiagnostics(items []Diagnostic) []lint.Diagnostic {
-	out := make([]lint.Diagnostic, 0, len(items))
-	for _, item := range items {
-		out = append(out, item.LintDiagnostic())
-	}
-
-	return out
 }
 
 // readFixtureBytes reads fixture file content from testdata.

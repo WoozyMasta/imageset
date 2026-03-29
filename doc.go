@@ -23,11 +23,7 @@ Common flow:
 		// handle validation diagnostics
 	}
 
-lintkit integration:
-  - DiagnosticCatalog / DiagnosticByCode expose stable metadata by code.
-  - RegisterLintRules / LintRulesProvider register rule runners.
-  - RegisterLintRulesByScope / RegisterLintRulesByStage apply filtered
-    registration.
-  - AttachLintDiagnostics passes diagnostics into lintkit run context values.
+lintkit integration is included to expose stable rule metadata and register
+imageset diagnostics in shared lint pipelines.
 */
 package imageset

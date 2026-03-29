@@ -104,7 +104,7 @@ func TestValidateDiagnostics(t *testing.T) {
 
 	for index := range validationErr.Diagnostics {
 		diagnostic := validationErr.Diagnostics[index]
-		if diagnostic.Code == 0 {
+		if parseDiagnosticCode(diagnostic) == 0 {
 			t.Fatalf("Diagnostics[%d].Code is empty", index)
 		}
 
@@ -152,12 +152,12 @@ func TestValidateEmptyTexturesAndImages(t *testing.T) {
 	hasTexturesError := false
 	hasImagesWarning := false
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateTexturesEmpty &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateTexturesEmpty &&
 			diagnostic.Severity == lint.SeverityError {
 			hasTexturesError = true
 		}
 
-		if diagnostic.Code == CodeValidateImagesEmpty &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateImagesEmpty &&
 			diagnostic.Severity == lint.SeverityWarning {
 			hasImagesWarning = true
 		}
@@ -198,7 +198,7 @@ func TestValidateDuplicateGroupName(t *testing.T) {
 	}
 
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateGroupNameDuplicate &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateGroupNameDuplicate &&
 			diagnostic.Severity == lint.SeverityError {
 			return
 		}
@@ -230,7 +230,7 @@ func TestValidateRefSizeNonPowerOfTwoWarning(t *testing.T) {
 	}
 
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateRefSizeNonPowerOfTwo &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateRefSizeNonPowerOfTwo &&
 			diagnostic.Severity == lint.SeverityWarning &&
 			diagnostic.Path == "ref_size.width" {
 			return
@@ -263,7 +263,7 @@ func TestValidateUnsupportedFlagsMaskError(t *testing.T) {
 	}
 
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateImageFlagsUnsupportedMask &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateImageFlagsUnsupportedMask &&
 			diagnostic.Severity == lint.SeverityError &&
 			diagnostic.Path == "images[0].flags" {
 			return
@@ -299,7 +299,7 @@ func TestValidateGroupImagesEmptyWarning(t *testing.T) {
 	}
 
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateGroupImagesEmpty &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateGroupImagesEmpty &&
 			diagnostic.Severity == lint.SeverityWarning &&
 			diagnostic.Path == "groups[0].images" {
 			return
@@ -333,7 +333,7 @@ func TestValidateImageOverlapWarning(t *testing.T) {
 	}
 
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateImageOverlap &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateImageOverlap &&
 			diagnostic.Severity == lint.SeverityWarning {
 			return
 		}
@@ -363,7 +363,7 @@ func TestValidateImagePaddingWarningDisabledByDefault(t *testing.T) {
 		}
 
 		for _, diagnostic := range validationErr.Diagnostics {
-			if diagnostic.Code == CodeValidateImagePaddingTooSmall {
+			if parseDiagnosticCode(diagnostic) == CodeValidateImagePaddingTooSmall {
 				t.Fatal("did not expect CodeValidateImagePaddingTooSmall by default")
 			}
 		}
@@ -397,11 +397,21 @@ func TestValidateImagePaddingWarningEnabledWithOptions(t *testing.T) {
 	}
 
 	for _, diagnostic := range validationErr.Diagnostics {
-		if diagnostic.Code == CodeValidateImagePaddingTooSmall &&
+		if parseDiagnosticCode(diagnostic) == CodeValidateImagePaddingTooSmall &&
 			diagnostic.Severity == lint.SeverityWarning {
 			return
 		}
 	}
 
 	t.Fatal("expected CodeValidateImagePaddingTooSmall warning")
+}
+
+// parseDiagnosticCode parses one exported diagnostic code token.
+func parseDiagnosticCode(diagnostic lint.Diagnostic) lint.Code {
+	code, ok := lint.ParsePublicCode(diagnostic.Code)
+	if !ok {
+		return 0
+	}
+
+	return code
 }
