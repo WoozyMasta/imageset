@@ -6,6 +6,7 @@ package imageset
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -63,6 +64,36 @@ type imageRectRef struct {
 	y          int
 	w          int
 	h          int
+}
+
+// imageRectRefList provides typed sort interface without reflection.
+type imageRectRefList []imageRectRef
+
+// Len returns list length.
+func (list imageRectRefList) Len() int {
+	return len(list)
+}
+
+// Less reports strict ordering for deterministic pair scan.
+func (list imageRectRefList) Less(leftIndex int, rightIndex int) bool {
+	left := list[leftIndex]
+	right := list[rightIndex]
+	if left.x != right.x {
+		return left.x < right.x
+	}
+	if left.y != right.y {
+		return left.y < right.y
+	}
+	if left.groupIndex != right.groupIndex {
+		return left.groupIndex < right.groupIndex
+	}
+
+	return left.imageIndex < right.imageIndex
+}
+
+// Swap swaps two items in place.
+func (list imageRectRefList) Swap(leftIndex int, rightIndex int) {
+	list[leftIndex], list[rightIndex] = list[rightIndex], list[leftIndex]
 }
 
 // Error formats validation diagnostics as one sentence.
@@ -329,8 +360,16 @@ func collectImagePairDiagnostics(
 
 	for leftIndex := 0; leftIndex < len(images)-1; leftIndex++ {
 		left := images[leftIndex]
+		xLimit := left.x + left.w
+		if options.EnablePaddingCheck {
+			xLimit += options.MinPadding
+		}
+
 		for rightIndex := leftIndex + 1; rightIndex < len(images); rightIndex++ {
 			right := images[rightIndex]
+			if right.x >= xLimit {
+				break
+			}
 
 			dx, dy := rectDistance(left, right)
 			if dx == 0 && dy == 0 {
@@ -394,6 +433,8 @@ func collectImageRects(document *Document) []imageRectRef {
 		}
 	}
 
+	sort.Sort(imageRectRefList(out))
+
 	return out
 }
 
@@ -440,14 +481,21 @@ func validateImage(
 	globalNames map[string]imageNameRef,
 ) []Diagnostic {
 	name := strings.TrimSpace(item.Name)
-	currentNamePath := imageFieldPath(groupIndex, imageIndex, "name")
+	namePath := ""
+	getNamePath := func() string {
+		if namePath == "" {
+			namePath = imageFieldPath(groupIndex, imageIndex, "name")
+		}
+
+		return namePath
+	}
 
 	if name == "" {
 		diagnostics = append(
 			diagnostics,
 			errorDiagnostic(
 				CodeValidateImageNameEmpty,
-				currentNamePath,
+				getNamePath(),
 				"must be non-empty",
 			),
 		)
@@ -458,7 +506,7 @@ func validateImage(
 				diagnostics,
 				errorDiagnostic(
 					CodeValidateImageNameDuplicate,
-					currentNamePath,
+					getNamePath(),
 					"duplicate name, first seen at "+
 						imageFieldPath(
 							firstRef.groupIndex,
@@ -480,7 +528,7 @@ func validateImage(
 				diagnostics,
 				infoDiagnostic(
 					CodeValidateImageNameDuplicateGlobal,
-					currentNamePath,
+					getNamePath(),
 					"duplicate global name, first seen at "+
 						imageFieldPath(
 							firstGlobalRef.groupIndex,
