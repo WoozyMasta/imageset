@@ -1,0 +1,182 @@
+modules:
+  - id: imageset
+    name: ImageSet
+    description: Lint rules for image set atlas and entry validation.
+rules:
+  - id: imageset.validate.ref-size-width-must-be-greater-than-0
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2001
+    message: '`ref_size.width` must be greater than 0'
+    description: Root atlas width is required and must be a positive integer.
+    default_severity: error
+  - id: imageset.validate.ref-size-height-must-be-greater-than-0
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2002
+    message: '`ref_size.height` must be greater than 0'
+    description: Root atlas height is required and must be a positive integer.
+    default_severity: error
+  - id: imageset.validate.ref-size-side-should-be-a-power-of-two
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2003
+    message: '`ref_size` side should be a power of two'
+    description: Power-of-two size improves compatibility with common atlas workflows.
+    default_severity: warning
+  - id: imageset.validate.textures-section-must-contain-at-least-one-texture
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2004
+    message: '`textures` section must contain at least one texture'
+    description: DayZ expects texture list to exist and contain at least one entry.
+    default_severity: error
+  - id: imageset.validate.texture-path-must-be-non-empty
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2005
+    message: '`texture.path` must be non-empty'
+    description: Each texture entry must define a path to texture source file.
+    default_severity: error
+  - id: imageset.validate.texture-mpix-must-be-zero-or-greater
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2006
+    message: '`texture.mpix` must be zero or greater'
+    description: Negative pixels-per-meter value is invalid for texture metadata.
+    default_severity: error
+  - id: imageset.validate.images-section-is-empty
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2007
+    message: '`images` section is empty'
+    description: Currently warning-only to allow group-only files during migration.
+    default_severity: warning
+  - id: imageset.validate.group-name-must-be-non-empty
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2008
+    message: '`group` name must be non-empty'
+    default_severity: error
+  - id: imageset.validate.group-name-must-be-unique
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2009
+    message: '`group` name must be unique'
+    description: Group lookup can use group_name + '_' + image_name path patterns.
+    default_severity: error
+  - id: imageset.validate.group-images-section-is-empty
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2010
+    message: '`group.images` section is empty'
+    description: Group exists but does not define any image entries.
+    default_severity: warning
+  - id: imageset.validate.image-name-must-be-non-empty
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2011
+    message: '`image` name must be non-empty'
+    default_severity: error
+  - id: imageset.validate.image-name-must-be-unique-in-current-section
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2012
+    message: '`image` name must be unique in current section'
+    description: Duplicates are checked separately for root images and for each group.
+    default_severity: error
+  - id: imageset.validate.image-name-is-duplicated-globally-across-root-groups
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2013
+    message: '`image` name is duplicated globally across root/groups'
+    description: 'Informational only: global duplicate may still resolve by group prefix.'
+    default_severity: info
+  - id: imageset.validate.image-pos-x-must-be-zero-or-greater
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2014
+    message: '`image.pos.x` must be zero or greater'
+    description: Negative coordinates place sprite origin outside atlas bounds.
+    default_severity: error
+  - id: imageset.validate.image-pos-y-must-be-zero-or-greater
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2015
+    message: '`image.pos.y` must be zero or greater'
+    description: Negative coordinates place sprite origin outside atlas bounds.
+    default_severity: error
+  - id: imageset.validate.image-size-width-must-be-greater-than-0
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2016
+    message: '`image.size.width` must be greater than 0'
+    description: Sprite width must be positive for usable atlas entry.
+    default_severity: error
+  - id: imageset.validate.image-size-height-must-be-greater-than-0
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2017
+    message: '`image.size.height` must be greater than 0'
+    description: Sprite height must be positive for usable atlas entry.
+    default_severity: error
+  - id: imageset.validate.image-exceeds-atlas-bounds-on-width
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2018
+    message: image exceeds atlas bounds on width
+    description: Triggered when pos.x + size.width is greater than ref_size.width.
+    default_severity: error
+  - id: imageset.validate.image-exceeds-atlas-bounds-on-height
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2019
+    message: image exceeds atlas bounds on height
+    description: Triggered when pos.y + size.height is greater than ref_size.height.
+    default_severity: error
+  - id: imageset.validate.image-flags-must-use-supported-mask-values-0-3
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2020
+    message: '`image.flags` must use supported mask values (0..3)'
+    description: Allowed flags are 0, ISHorizontalTile(1), ISVerticalTile(2), and 3.
+    default_severity: error
+  - id: imageset.validate.image-rectangle-overlaps-another-image
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2021
+    message: image rectangle overlaps another image
+    description: Overlap means two sprite rectangles intersect in atlas space.
+    default_severity: warning
+  - id: imageset.validate.image-padding-is-smaller-than-configured-minimum
+    module: imageset
+    scope: validate
+    scope_description: Image set semantic validation diagnostics.
+    code: IMGSET2022
+    message: image padding is smaller than configured minimum
+    description: Disabled by default. Enable to enforce minimum gap between image rectangles.
+    default_severity: warning
+    default_enabled: false
+    default_options:
+      min_padding: 4

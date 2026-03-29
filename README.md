@@ -7,8 +7,11 @@ It provides:
 * parser from file, reader, bytes, or string
 * canonical text formatter/writer
 * semantic validation with structured diagnostics
+* `lintkit/lint` provider registration (`RegisterLintRules`) and codes catalog
 * identifier normalization helpers
 * symbolic and numeric flags parsing
+* generated lint rules snapshot and docs: [rules.yaml](rules.yaml),
+  [RULES.md](RULES.md)
 
 ## Install
 
